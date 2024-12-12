@@ -1,14 +1,18 @@
 <template>
   <div>
+    <Header></Header>
     <button @click="toggleTheme">
       {{ isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode' }}
     </button>
   </div>
+  <RouterView></RouterView>
 </template>
 
 <script>
 import { computed } from 'vue'
+import { RouterView } from 'vue-router'
 import { theme, setTheme } from '@/stores/theme'
+import Header from './components/Header.vue'
 
 export default {
   setup() {
@@ -22,6 +26,9 @@ export default {
       isDark,
       toggleTheme,
     }
+  },
+  components: {
+    Header,
   },
 }
 </script>

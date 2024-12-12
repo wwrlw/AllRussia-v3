@@ -1,5 +1,9 @@
-<script setup></script>
+<script setup>
+import mainComponent from '@/components/mainComponent.vue'
+</script>
 
 <template>
-  <main>sadsad</main>
+  <main>
+    <mainComponent></mainComponent>
+  </main>
 </template>
