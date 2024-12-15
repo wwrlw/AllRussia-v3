@@ -1,11 +1,10 @@
 <template>
   <div class="main">
+    <div class="main__section">
+      <div class="main__section-logo">ALLRUSSIA</div>
+      <div class="main__section-title">Мы открываем Россию заново! Вместе с вами!</div>
+    </div>
     <div class="main__wrapper">
-      <div class="main__section">
-        <div class="main__section-logo">ALLRUSSIA</div>
-        <div class="main__section-title">Мы открываем Россию заново! Вместе с вами!</div>
-      </div>
-
       <div class="main__article">
         <div class="main__article-wrapper">
           <p class="main-article-subtitle" v-html="main_article.subtitle"></p>
@@ -124,9 +123,11 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    background-image: url('@/assets/main.png');
+    height: 600px;
+    background-image: url('@/images/assets/main.png');
     background-size: cover;
     background-position: center;
+    margin-bottom: 20px;
     color: --vt-c-white;
     &-logo {
       font-size: 200px;

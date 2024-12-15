@@ -31,7 +31,7 @@
           </div>
           <div class="vertical__line"></div>
           <div class="language-select">
-            <img src="../../assets/globus.svg" alt="Language" />
+            <img src="@/images/assets/globus.svg" alt="Language" />
             <select v-model="selectedLanguage" @change="handleLanguageChange">
               <option v-for="item in LanguageItems" :key="item.id" :value="item.title">
                 {{ item.title }}
@@ -48,6 +48,7 @@
     <Transition>
       <SideBar v-if="showSideBar" @on-close.stop="showSideBar = false" />
     </Transition>
+    <CurrencyComponent />
   </div>
 </template>
 
@@ -56,6 +57,7 @@ import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import SideBar from '@/components/SideBar.vue'
 import UiDropDown from '@/components/Ui/UiDropDown.vue'
+import CurrencyComponent from '@/components/CurrencyComponent.vue'
 
 const showSideBar = ref(false)
 const selectedLanguage = ref('RUS')
@@ -132,7 +134,6 @@ onClickOutside(dropdownRef, () => {
   background-color: #222222;
   color: #ffffff;
   height: 70px;
-  position: fixed;
   width: 100%;
 }
 
@@ -175,6 +176,9 @@ onClickOutside(dropdownRef, () => {
 
 .header__logo {
   cursor: pointer;
+  h1 {
+    color: #ffffff;
+  }
 }
 
 .header__items {
@@ -191,8 +195,8 @@ onClickOutside(dropdownRef, () => {
 }
 
 .divider {
-  height: 71px; /* Толщина линии */
-  background-color: #ffffff; /* Цвет линии */
+  height: 2px;
+  background-color: #ffffff;
 }
 
 .header__btn {
