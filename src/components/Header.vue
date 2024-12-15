@@ -18,15 +18,15 @@
             </router-link>
           </div>
           <div class="vertical__line"></div>
-          <div
-            v-for="navItem in navMenuItems"
-            :key="navItem.title"
-            class="header__items"
-            @click="toggleDropDown(navItem.id)"
-          >
-            <h3>{{ navItem.title }}</h3>
+          <div v-for="navItem in navMenuItems" :key="navItem.title" class="header__items">
+            <h3 @click="toggleDropDown(navItem.id)">{{ navItem.title }}</h3>
             <Transition>
-              <UiDropDown class="" :options="navItem.options" v-if="dropDown === navItem.id" />
+              <UiDropDown
+                v-if="dropDown === navItem.id"
+                ref="dropdownRef"
+                class=""
+                :options="navItem.options"
+              />
             </Transition>
           </div>
           <div class="vertical__line"></div>
@@ -52,10 +52,10 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 import SideBar from '@/components/SideBar.vue'
 import UiDropDown from '@/components/Ui/UiDropDown.vue'
-
-import { ref } from 'vue'
 
 const showSideBar = ref(false)
 const selectedLanguage = ref('RUS')
@@ -63,6 +63,7 @@ const LanguageItems = [
   { id: 1, title: 'RUS' },
   { id: 2, title: 'AR' },
 ]
+
 const navMenuItems = [
   {
     id: 1,
@@ -111,10 +112,15 @@ const navMenuItems = [
 ]
 
 const dropDown = ref(null)
+const dropdownRef = ref(null)
 
 const toggleDropDown = (id) => {
   dropDown.value = dropDown.value === id ? null : id
 }
+
+onClickOutside(dropdownRef, () => {
+  dropDown.value = null
+})
 </script>
 
 <style scoped lang="scss">

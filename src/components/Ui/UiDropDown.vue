@@ -11,7 +11,7 @@ export default {
 
 <template>
   <div class="dropdown">
-    <ul>
+    <ul class="ul">
       <li v-for="option in options" :key="option.label">
         <a :href="option.link" class="dropdown__text pb-1">{{ option.label }}</a>
       </li>
@@ -35,5 +35,8 @@ export default {
 .dropdown__text {
   margin: 0;
   color: white;
+}
+.ul {
+  padding: 0;
 }
 </style>
