@@ -5,44 +5,61 @@
       <div class="main__section-title">Мы открываем Россию заново! Вместе с вами!</div>
     </div>
     <div class="main__wrapper">
-      <div class="main__article">
-        <div class="main__article-wrapper">
-          <p class="main-article-subtitle" v-html="main_article.subtitle"></p>
-          <h3 class="main__article-title">{{ main_article.title }}</h3>
-          <div class="vertical-line"></div>
+      <div class="main__left">
+        <div class="main__article">
+          <div class="main__article-wrapper">
+            <div class="">
+              <h3 class="main__article-title">{{ main_article.title }}</h3>
+              <p class="main-article-subtitle" v-html="main_article.subtitle"></p>
+              <h4 class="similar-news-title">Похожие новости</h4>
+              <ul class="similar-news-list">
+                <li v-for="article in same_as_article" :key="article.id" class="similar-news-item">
+                  {{ article.title }}
+                </li>
+              </ul>
+            </div>
+            <img
+              class="item_1-img"
+              src="@/images/assets/comunicacion%20politica%20(1)%201.png"
+              alt="123"
+              style="max-width: 660px"
+            />
+            <div class="vertical-line"></div>
+          </div>
         </div>
 
-        <div class="main__same">
-          <p class="main__same-p">Похожие новости</p>
-          <ul class="main__same-title">
-            <li v-for="article in same_as_article" :key="article.id">
-              {{ article.title }}
-            </li>
-          </ul>
+        <div class="latest-news">
+          <div v-for="item in latest_news.slice(0, 3)" :key="item.id" class="latest-news-item">
+            <img src="@/images/assets/1.png" alt="Новость" class="latest-news-image" />
+            <div>
+              <p class="latest-news-text">{{ item.title }}</p>
+              <p class="latest-news-time">{{ getTimeAgo(item.updated) }}</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="item item_2">
-        <div class="horizontal-line"></div>
-        <div class="red-rectangle"></div>
-        <h3 class="item_2-title">Последние новости</h3>
-
-        <p class="item_2-subtitle" v-html="latest_news[1]?.subtitle || 'Загрузка...'"></p>
-
-        <p class="asd font-bold">
-          {{ latest_news[0] ? getTimeAgo(latest_news[0].updated) : 'Загрузка...' }}
-        </p>
-        <div v-for="item in latest_news" :key="item.id" class="news-item">
-          <div class="w-[345px] h-[0px] border border-[#aaaaaa] mb-2 mt-2"></div>
-          <p class="item_2-list">{{ item.title }}</p>
+      <div class="main__right">
+        <div class="featured-news">
+          <h3 class="featured-news-title">Последние новости</h3>
+          <img
+            src="@/images/assets/284320788be7027b8bea3f687155b7fb%201.png"
+            alt="Изображение новости"
+            class="featured-news-image"
+          />
+          <p class="featured-news-text" v-html="latest_news[1]?.subtitle || 'Загрузка...'"></p>
+          <p class="featured-news-time">{{ getTimeAgo(latest_news[1]?.updated) }}</p>
+          <div v-for="item in latest_news.slice(0, 3)" :key="item.id" class="featured-news-item">
+            <p class="featured-news-title-small">{{ item.title }}</p>
+          </div>
         </div>
       </div>
 
-      <div v-for="(article, index) in same_as_article.slice(0, 3)" :key="index" class="item item_3">
+      <!-- <div v-for="(article, index) in same_as_article.slice(0, 3)" :key="index" class="item item_3">
         <div class="item-block">
           <p class="dsa" v-html="article.subtitle"></p>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -111,12 +128,108 @@ onMounted(() => {
 .main {
   &__wrapper {
     padding: 1rem;
+    display: flex;
+    justify-content: start;
+    gap: 30px;
   }
+
   .item {
     margin-bottom: 1rem;
     padding: 0.5rem;
     border-radius: 4px;
   }
+  .latest-news {
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+    &-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    &-image {
+      max-width: 320px;
+      height: auto;
+      object-fit: cover;
+    }
+
+    &-text {
+      max-width: 300px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    &-time {
+      font-size: 12px;
+      color: #999;
+    }
+  }
+  .similar-news-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+
+  .similar-news-list {
+    list-style: none;
+    padding: 0;
+
+    .similar-news-item {
+      position: relative;
+      padding-left: 15px;
+      padding-right: 4px;
+      margin-bottom: 5px;
+      color: #333;
+
+      &::before {
+        content: '●';
+        color: red;
+        position: absolute;
+        left: 0;
+      }
+    }
+  }
+  .featured-news {
+    &-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    &-image {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    &-text {
+      font-size: 14px;
+      color: #666;
+    }
+
+    &-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    &-title-small {
+      font-size: 14px;
+      color: #333;
+    }
+
+    &-time {
+      font-size: 12px;
+      color: #999;
+    }
+  }
+
   &__section {
     display: flex;
     justify-content: center;
@@ -138,11 +251,25 @@ onMounted(() => {
       font-weight: bold;
     }
   }
+  &__left {
+    max-width: 1075px;
+  }
   &__article {
     display: flex;
-    justify-content: flex-start;
-    gap: 20px;
     align-items: center;
+    &-title {
+      font-family: 'Roboto Condensed';
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      padding-bottom: 20px;
+    }
+
+    &-wrapper {
+      display: flex;
+      justify-content: start;
+    }
   }
 }
 </style>
