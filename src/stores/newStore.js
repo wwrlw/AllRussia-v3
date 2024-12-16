@@ -7,6 +7,9 @@ export const useNewStore = defineStore('newStore', {
     same_as_article: [],
     latest_news: [],
     economics_news: [],
+    politic_news: [],
+    science_education_news: [],
+    tourism_news: [], // Added tourism_news state
     apiImage: 'https://allrussia.info/api/public/flags.jpg',
   }),
   actions: {
@@ -34,6 +37,10 @@ export const useNewStore = defineStore('newStore', {
         )
 
         const responses = await Promise.all(requests)
+        this.politic_news = responses[0].data
+        this.economics_news = responses[1].data
+        this.science_education_news = responses[2].data.slice(0, 5)
+
         this.latest_news = responses
           .map((res) => res.data)
           .flat()
@@ -51,9 +58,21 @@ export const useNewStore = defineStore('newStore', {
         console.error('Error fetching economics news:', error)
       }
     },
+    async fetchDataNewsTourism() {
+      // New action to fetch tourism data
+      try {
+        const response = await axios.get('https://allrussia.info/api/data_news_tourism')
+        this.tourism_news = response.data
+      } catch (error) {
+        console.error('Error fetching tourism news:', error)
+      }
+    },
   },
+
   getters: {
     getApiImage: (state) => state.apiImage,
     getEconomicsNews: (state) => state.economics_news,
+    getScienceEducationNews: (state) => state.science_education_news,
+    getTourismNews: (state) => state.tourism_news, // New getter for tourism news
   },
 })

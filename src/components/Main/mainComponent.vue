@@ -14,7 +14,7 @@
               <h4 class="similar-news-title">Похожие новости</h4>
               <ul class="similar-news-list">
                 <li v-for="article in same_as_article" :key="article.id" class="similar-news-item">
-                  {{ article.title }}
+                  <router-link :to="`/article/${article.id}`">{{ article.title }}</router-link>
                 </li>
               </ul>
             </div>
@@ -32,7 +32,9 @@
           <div v-for="item in latest_news.slice(0, 3)" :key="item.id" class="latest-news-item">
             <img src="@/images/assets/1.png" alt="Новость" class="latest-news-image" />
             <div>
-              <p class="latest-news-text">{{ item.title }}</p>
+              <p class="latest-news-text">
+                <router-link :to="`/article/${item.id}`">{{ item.title }}</router-link>
+              </p>
               <p class="latest-news-time">{{ getTimeAgo(item.updated) }}</p>
             </div>
           </div>
@@ -50,16 +52,12 @@
           <p class="featured-news-text" v-html="latest_news[1]?.subtitle || 'Загрузка...'"></p>
           <p class="featured-news-time">{{ getTimeAgo(latest_news[1]?.updated) }}</p>
           <div v-for="item in latest_news.slice(0, 3)" :key="item.id" class="featured-news-item">
-            <p class="featured-news-title-small">{{ item.title }}</p>
+            <p class="featured-news-title-small">
+              <router-link :to="`/article/${item.id}`">{{ item.title }}</router-link>
+            </p>
           </div>
         </div>
       </div>
-
-      <!-- <div v-for="(article, index) in same_as_article.slice(0, 3)" :key="index" class="item item_3">
-        <div class="item-block">
-          <p class="dsa" v-html="article.subtitle"></p>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
